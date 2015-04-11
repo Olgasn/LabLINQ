@@ -34,8 +34,8 @@ namespace LabLINQ
             this.Form.Controls.Add(gridLINQVisualize);
 
 
-            //Выполнение LINQ запроса и передача результатов в элементу правления
-            Response.Write("<b>Результат выполнения запроса: </b><br><small>" + queryLINQ.ToString() + "</small><br>");
+            //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize
+            Response.Write("1. Результат выполнения запроса на выборку отсортированных записей из одной таблицы, удовлетворяющих некотору условию : </b><br><small>" + queryLINQ.ToString() + "</small><br>");
             gridLINQVisualize.DataSource = queryLINQ.ToList();
 
 
