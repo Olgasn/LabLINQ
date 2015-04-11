@@ -69,6 +69,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>labLINQModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Create&amp;FillDB.sql" />
     <Content Include="Models\labLINQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>labLINQModel.edmx</DependentUpon>
