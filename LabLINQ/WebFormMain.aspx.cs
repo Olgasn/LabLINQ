@@ -35,10 +35,10 @@ namespace LabLINQ
 
 
             //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize
-            Response.Write("1. Результат выполнения запроса на выборку отсортированных записей из одной таблицы, удовлетворяющих некотору условию : </b><br><small>" + queryLINQ.ToString() + "</small><br>");
+            gridLINQVisualize.Caption="1. Результат выполнения запроса на выборку отсортированных записей из одной таблицы, удовлетворяющих некоторому условию : </b><br><small>" + queryLINQ.ToString() + "</small><br>";
             gridLINQVisualize.DataSource = queryLINQ.ToList();
 
-
+            
 
             this.DataBind();
            
