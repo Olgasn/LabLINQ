@@ -14,7 +14,7 @@ namespace LabLINQ
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Определение LINQ запроса
+            //// Определение LINQ запроса
             var queryLINQ = from f in db.Operations
                             where (f.Inc_Exp > 0 && f.Date.Value.Year == 2015)
                             orderby f.FuelID
@@ -24,25 +24,28 @@ namespace LabLINQ
 
 
             
-            //Визуализация в табличном элементе результатов выполнения запроса
-
-            //Создается табличный элемент управления (GridView) и настраиваются  его свойства.
-            //* Можно было создать этот предварительно, используя возможности визуального конструирования.
-            GridView gridLINQVisualize = new GridView();
-            gridLINQVisualize.AutoGenerateColumns = true;
-            gridLINQVisualize.AllowPaging = true;
-            this.Form.Controls.Add(gridLINQVisualize);
-
-
+            //// Визуализация в табличном элементе результатов выполнения запроса         
+            
             //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize
             gridLINQVisualize.Caption="1. Результат выполнения запроса на выборку отсортированных записей из одной таблицы, удовлетворяющих некоторому условию : </b><br><small>" + queryLINQ.ToString() + "</small><br>";
+
             gridLINQVisualize.DataSource = queryLINQ.ToList();
 
-            
 
-            this.DataBind();
            
         }
+
+        protected void gridLINQVisualize_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gridLINQVisualize.PageIndex = e.NewPageIndex;
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            gridLINQVisualize.DataBind();
+
+        }
+
         
 
     }
