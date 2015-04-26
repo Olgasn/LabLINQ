@@ -16,9 +16,11 @@ namespace LabLINQ
         {
             //// Определение LINQ запроса
             var queryLINQ = from f in db.Operations
+                            join t in db.Fuels
+                            on f.FuelID equals t.FuelID
                             where (f.Inc_Exp > 0 && f.Date.Value.Year == 2015)
                             orderby f.FuelID
-                            select f;
+                            select new {f.OperationID, t.FuelType, f.Inc_Exp, f.Date.Value.Month };
             //то же, используя методы расширений
             //var queryLINQ = db.Operations.Where(f => (f.Inc_Exp > 0 && f.Date.Value.Year == 2015)).OrderBy(f=>f.FuelID) ;
 
