@@ -121,13 +121,7 @@
     <Compile Include="Models\Operations.cs">
       <DependentUpon>labLINQModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>labLINQModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tanks.cs">
-      <DependentUpon>labLINQModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_AllOperations.cs">
       <DependentUpon>labLINQModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

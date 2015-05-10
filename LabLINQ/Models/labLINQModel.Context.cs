@@ -27,8 +27,6 @@ namespace LabLINQ.Models
     
         public virtual DbSet<Fuels> Fuels { get; set; }
         public virtual DbSet<Operations> Operations { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tanks> Tanks { get; set; }
-        public virtual DbSet<View_AllOperations> View_AllOperations { get; set; }
     }
 }

@@ -11,7 +11,9 @@
     <form id="formMain" runat="server">
     <div>
     
-        <asp:GridView ID="gridLINQVisualize" runat="server" AllowPaging="True" OnPageIndexChanging="gridLINQVisualize_PageIndexChanging">
+        <asp:GridView ID="gridLINQVisualize1" runat="server" AllowPaging="True" OnPageIndexChanging="gridLINQVisualize1_PageIndexChanging" Width="100%">
+        </asp:GridView>
+        <asp:GridView ID="gridLINQVisualize2" runat="server" AllowPaging="True" OnPageIndexChanging="gridLINQVisualize2_PageIndexChanging" Width="100%">
         </asp:GridView>
     
     </div>

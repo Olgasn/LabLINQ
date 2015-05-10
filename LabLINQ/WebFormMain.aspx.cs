@@ -14,37 +14,69 @@ namespace LabLINQ
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            //// Определение LINQ запроса
-           var queryLINQ = from f in db.Operations
+            //// Определение LINQ запроса 1
+           var queryLINQ1 = from f in db.Operations
                            join t in db.Fuels
                            on f.FuelID equals t.FuelID
                            where (f.Inc_Exp > 0 && f.Date.Value.Year == 2015)
                            orderby f.FuelID
-                           select new {f.OperationID, t.FuelType, f.Inc_Exp, f.Date.Value.Month };
+                           select new 
+                           {
+                               Код_операции=f.OperationID, 
+                               Назание_топлива=t.FuelType, 
+                               Приход_Расход=f.Inc_Exp, 
+                               Месяц=f.Date.Value.Month };
             
             //то же, используя методы расширений
-            //var queryLINQ = db.Operations.Where(f => (f.Inc_Exp > 0 && f.Date.Value.Year == 2015)).OrderBy(f => f.FuelID).Join(db.Fuels, f => f.FuelID, t => t.FuelID, (f, t) => new { f.OperationID, t.FuelType, f.Inc_Exp, f.Date.Value.Month });
+            //var queryLINQ1 = db.Operations.Where(f => (f.Inc_Exp > 0 && f.Date.Value.Year == 2015))
+            //.OrderBy(f => f.FuelID)
+            //.Join(db.Fuels, f => f.FuelID, t => t.FuelID, (f, t) => new { f.OperationID, t.FuelType, f.Inc_Exp, f.Date.Value.Month });
             
             
             //// Визуализация в табличном элементе результатов выполнения запроса         
             
-            //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize
-            gridLINQVisualize.Caption="1. Результат выполнения запроса на выборку отсортированных записей из одной таблицы, удовлетворяющих некоторому условию : </b><br><small>" + queryLINQ.ToString() + "</small><br>";
+            //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize1
+            gridLINQVisualize1.Caption="1. Результат выполнения запроса на выборку отсортированных записей из двух таблиц, удовлетворяющих заданному условию : </b><br><small>" + queryLINQ1.ToString() + "</small><br>";
 
-            gridLINQVisualize.DataSource = queryLINQ.ToList();
+            gridLINQVisualize1.DataSource = queryLINQ1.ToList();
 
 
-           
+            //// Определение LINQ запроса 2 
+            var queryLINQ2 = from o in db.Operations
+                             where (o.Inc_Exp > 0 && o.Date.Value.Year == 2015)
+                             group o.Inc_Exp by o.FuelID into gr
+                             select new
+                             {
+                                 Код_топлива = gr.Key,
+                                 Количества_топлива = gr.Sum()
+                             };
+
+            
+
+            //// Визуализация в табличном элементе результатов выполнения запроса 2        
+
+            //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize2
+            gridLINQVisualize2.Caption = "2. Результат выполнения запроса на выборку сгруппированных записей из одной таблицы, удовлетворяющих заданному условию, с выполнением групповой операции суммирования : </b><br><small>" + queryLINQ2.ToString() + "</small><br>";
+
+            gridLINQVisualize2.DataSource = queryLINQ2.ToList();
+
+
+
         }
 
-        protected void gridLINQVisualize_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gridLINQVisualize1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gridLINQVisualize.PageIndex = e.NewPageIndex;
+            gridLINQVisualize1.PageIndex = e.NewPageIndex;
+        }
+        protected void gridLINQVisualize2_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gridLINQVisualize2.PageIndex = e.NewPageIndex;
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            gridLINQVisualize.DataBind();
+            gridLINQVisualize1.DataBind();
+            gridLINQVisualize2.DataBind();
 
         }
 
