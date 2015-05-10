@@ -33,7 +33,7 @@ namespace LabLINQ
             //.Join(db.Fuels, f => f.FuelID, t => t.FuelID, (f, t) => new { f.OperationID, t.FuelType, f.Inc_Exp, f.Date.Value.Month });
             
             
-            //// Визуализация в табличном элементе результатов выполнения запроса         
+            //// Визуализация в табличном элементе результатов выполнения запроса 1        
             
             //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize1
             gridLINQVisualize1.Caption="1. Результат выполнения запроса на выборку отсортированных записей из двух таблиц, удовлетворяющих заданному условию : </b><br><small>" + queryLINQ1.ToString() + "</small><br>";
@@ -50,8 +50,16 @@ namespace LabLINQ
                                  Код_топлива = gr.Key,
                                  Количества_топлива = gr.Sum()
                              };
+            //то же, используя методы расширений:
+            //var queryLINQ2 = db.Operations.Where(o => ((o.Inc_Exp > (Single?)0) && (o.Date.Value.Year == 2015)))
+            //    .GroupBy(o => o.FuelID, o => o.Inc_Exp)
+            //    .Select(gr => new
+            //    {
+            //        Код_топлива = gr.Key,
+            //        Количества_топлива = gr.Sum()
+            //    }
+            //     );
 
-            
 
             //// Визуализация в табличном элементе результатов выполнения запроса 2        
 
