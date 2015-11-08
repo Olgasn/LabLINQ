@@ -14,7 +14,7 @@
 
     
         <asp:Button ID="ButtonInsert" runat="server" Text="Добавить данные" OnClick="ButtonInsert_Click" />
-        <asp:Button ID="ButtonDelete" runat="server" Text="Удалить данные" />
+        <asp:Button ID="ButtonDelete" runat="server" Text="Удалить данные" OnClick="ButtonDelete_Click" />
         <asp:Button ID="ButtonQuery" runat="server" Text="Выполнить запросы" OnClick="ButtonQuery_Click" />
 
 

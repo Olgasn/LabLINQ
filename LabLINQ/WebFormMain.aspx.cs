@@ -169,6 +169,46 @@ namespace LabLINQ
             db.Operations.Add(operation);
             // Сохранить изменения в базе данных
             db.SaveChanges();
+
+
+            RunQueries();
+
+        }
+
+        protected void ButtonDelete_Click(object sender, EventArgs e)
+        {
+
+            //подлежащая удалению запись в таблице Tanks
+            Tanks tank = db.Tanks
+                .Where(c => c.TankType == "Бочка")
+                .FirstOrDefault();
+
+            //подлежащая удалению запись в таблице Fuels
+            Fuels fuel = db.Fuels
+                .Where(c => c.FuelType == "Нитроглицерин")
+                .FirstOrDefault();
+
+            //подлежащая удалению запись в таблице Operations
+            Operations operation = db.Operations
+                .Where(c => ((c.FuelID==fuel.FuelID) && (c.TankID==tank.TankID)))
+                .FirstOrDefault();
+            db.Operations.Remove(operation);
+            // Сохранить изменения в базе данных
+            db.SaveChanges();
+
+
+            db.Tanks.Remove(tank);
+            db.Fuels.Remove(fuel);
+            // Сохранить изменения в базе данных
+            db.SaveChanges();
+
+            RunQueries();
+
+
+
+
+
+
         }
 
 
