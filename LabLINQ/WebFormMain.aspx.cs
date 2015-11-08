@@ -154,19 +154,22 @@ namespace LabLINQ
 
 
             //---------------------
-            // Создать новую операцию
-            Operations operation = new Operations
+            // Добавить в DbSet Operations два новых объекта
+            db.Operations.Add(new Operations
             {
                 TankID = tank.TankID,
                 FuelID = fuel.FuelID,
                 Inc_Exp = 100,
                 Date = DateTime.Today
-
-
-            };
-
-            // Добавить в DbSet
-            db.Operations.Add(operation);
+            });
+            db.Operations.Add(new Operations
+            {
+                TankID = tank.TankID,
+                FuelID = fuel.FuelID,
+                Inc_Exp = -100,
+                Date = DateTime.Today
+            });                
+                
             // Сохранить изменения в базе данных
             db.SaveChanges();
 
@@ -188,15 +191,15 @@ namespace LabLINQ
                 .Where(c => c.FuelType == "Нитроглицерин")
                 .FirstOrDefault();
 
-            //подлежащая удалению запись в таблице Operations
-            Operations operation = db.Operations
-                .Where(c => ((c.FuelID==fuel.FuelID) && (c.TankID==tank.TankID)))
-                .FirstOrDefault();
-            db.Operations.Remove(operation);
+            //подлежащие удалению записи в таблице Operations
+            var operation = db.Operations
+                .Where(c => ((c.FuelID==fuel.FuelID) && (c.TankID==tank.TankID)));
+            //удаление набора записей
+            db.Operations.RemoveRange(operation);
             // Сохранить изменения в базе данных
             db.SaveChanges();
 
-
+            // удаление по одной записи из DbSet Tanks и Fuels
             db.Tanks.Remove(tank);
             db.Fuels.Remove(fuel);
             // Сохранить изменения в базе данных
