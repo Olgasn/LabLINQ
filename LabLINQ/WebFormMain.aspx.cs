@@ -104,16 +104,15 @@ namespace LabLINQ
                              orderby t.TankID descending
                              select new
                              {
-                                 Код_емкости = t.TankID,
-                                 Название = t.TankType,
-                                 Материал = t.TankMaterial,
-                                 Объем = t.TankVolume,
+                                 Название_Емкости = t.TankType,
+                                 Материал_Емкости = t.TankMaterial,
+                                 Объем_Емкости = t.TankVolume,
                                  Вес = t.TankWeight
                              };
             //// Визуализация в табличном элементе результатов выполнения запроса 3       
 
             //Выполнение LINQ запроса и передача результатов элементу управления gridLINQVisualize3
-            gridLINQVisualize3.Caption = "3. Результат выполнения запроса на выборку сгруппированных записей из одной таблицы, удовлетворяющих заданному условию, с выполнением групповой операции суммирования : </b><br><small>" + queryLINQ2.ToString() + "</small><br>";
+            gridLINQVisualize3.Caption = "3. Результат выполнения запроса на выборку записей из одной таблицы с выводом определенных полей: </b><br><small>" + queryLINQ3.ToString() + "</small><br>";
             gridLINQVisualize3.DataSource = queryLINQ3.ToList();
 
 
