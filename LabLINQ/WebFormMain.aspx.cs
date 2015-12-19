@@ -181,32 +181,35 @@ namespace LabLINQ
         protected void ButtonDelete_Click(object sender, EventArgs e)
         {
 
-            //подлежащая удалению запись в таблице Tanks
-            Tanks tank = db.Tanks
-                .Where(c => c.TankType == "Бочка")
-                .FirstOrDefault();
 
-            //подлежащая удалению запись в таблице Fuels
-            Fuels fuel = db.Fuels
-                .Where(c => c.FuelType == "Нитроглицерин")
-                .FirstOrDefault();
+            //подлежащие удалению записи в таблице Tanks
+            string nametank = "Бочка";
+            var tank = db.Tanks.Where(c => c.TankType == nametank);
 
-            if ((tank != null) & (fuel != null))
-            {
-                //удаление записей в таблице Operations
-                IQueryable<Operations> someOperations = db.Operations
-                    .Where(c => ((c.FuelID == fuel.FuelID) && (c.TankID == tank.TankID)));
+            //подлежащие удалению записи в таблице Fuels
+            string namefuel = "Нитроглицерин";
+            var fuel = db.Fuels
+                .Where(c => c.FuelType == namefuel);
+            
+
+                //подлежащие удалению записи в связанной таблице Operations
+                var someOperations = db.Operations
+                    .Include("Tanks")
+                    .Include("Fuels")
+                    .Where(o => ((o.Tanks.TankType == nametank)) && (o.Fuels.FuelType == namefuel));
+
+                //Удаление нескольких записей в таблице Operations    
                 db.Operations.RemoveRange(someOperations);
                 // сохранить изменения в базе данных
                 db.SaveChanges();
 
-                //Удаление записи в таблице Tanks и в таблице Fuels
-                db.Tanks.Remove(tank);
-                db.Fuels.Remove(fuel);
+                //Удаление нескольких записей в таблице Tanks и в таблице Fuels
+                db.Tanks.RemoveRange(tank);
+                db.Fuels.RemoveRange(fuel);
+                
                 // сохранить изменения в базе данных
                 db.SaveChanges();
-            }
-
+        
             RunQueries();
 
 
