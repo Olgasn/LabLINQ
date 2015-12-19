@@ -191,19 +191,21 @@ namespace LabLINQ
                 .Where(c => c.FuelType == "Нитроглицерин")
                 .FirstOrDefault();
 
-            //подлежащие удалению записи в таблице Operations
-            var operation = db.Operations
-                .Where(c => ((c.FuelID==fuel.FuelID) && (c.TankID==tank.TankID)));
-            //удаление набора записей
-            db.Operations.RemoveRange(operation);
-            // Сохранить изменения в базе данных
-            db.SaveChanges();
+            if ((tank != null) & (fuel != null))
+            {
+                //удаление записей в таблице Operations
+                IQueryable<Operations> someOperations = db.Operations
+                    .Where(c => ((c.FuelID == fuel.FuelID) && (c.TankID == tank.TankID)));
+                db.Operations.RemoveRange(someOperations);
+                // сохранить изменения в базе данных
+                db.SaveChanges();
 
-            // удаление по одной записи из DbSet Tanks и Fuels
-            db.Tanks.Remove(tank);
-            db.Fuels.Remove(fuel);
-            // Сохранить изменения в базе данных
-            db.SaveChanges();
+                //Удаление записи в таблице Tanks и в таблице Fuels
+                db.Tanks.Remove(tank);
+                db.Fuels.Remove(fuel);
+                // сохранить изменения в базе данных
+                db.SaveChanges();
+            }
 
             RunQueries();
 
